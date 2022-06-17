@@ -28,7 +28,7 @@ export default class App extends Component{
     firebase.notifications().setBadge(0);
     this.getAppVersion()
     this.createNotificationListeners();
-    this.checkPermission();
+    // this.checkPermission();
   }
   async checkPermission() {
     try{
@@ -63,7 +63,6 @@ export default class App extends Component{
       if (Platform.OS==='ios') {
         firebase.messaging().ios.registerForRemoteNotifications().then(() => {
           firebase.messaging().getToken().then(async token => {
-            console.log('tokenIOS',token);
             store.dispatch(userUpdateNotificationToken({token:token}))
           }).catch(error => {
             alert('error ' + error);

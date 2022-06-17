@@ -12,11 +12,11 @@
     "enterNewPassword":"Enter Your New Password",
 
     "moto":"Moto",
-    "forSmallShipments":"For small shipments",
+    "forSmallShipments":"For small shipments, 1 to 2 package . . .",
     "romork":"Rickshaw",
-    "forMediumFreight":"For medium freight",
+    "forMediumFreight":"For medium freight,  5 to 10 package . . .",
     "truck":"Truck",
-    "forBulkCargo":"For bulk cargo",
+    "forBulkCargo":"For bulk cargo, 10 to up package . . .",
     "checkLuggage":"Search Package",
     "checkTheDeliveryProcess":"Check the delivery process",
     "alertDriverBusy":"Our drivers are busy right now, please try again later!",
@@ -156,6 +156,7 @@
    
     "noRate":"No rate to calculate",
     "Cancel":"Cancel",
-    "Amount":"Amount"
+    "Amount":"Amount",
+    "word_hi":"Hi,"
 
 }

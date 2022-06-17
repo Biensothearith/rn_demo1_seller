@@ -18,6 +18,7 @@ import  Loading  from "../Components/Loading";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import NavigationService from '../Service/navigationService'
 import { NAV_TYPES } from '../Navigation/navTypes'
+import { colors } from '../Assets';
 export default class CallHistory extends Component{
    
     constructor(prop){
@@ -64,7 +65,8 @@ export default class CallHistory extends Component{
         this.props.listCalledDriver(1)
     }
     componentDidMount(){
-        this.handleListCalledDriver()
+        Alert.alert("Only Demo~")
+        // this.handleListCalledDriver()
     }
     handleListCalledDriver(){
         const {page} = this.state
@@ -72,7 +74,6 @@ export default class CallHistory extends Component{
     }
     renderListCalledDriver(){
         const {dataCalledDriver} = this.state
-        console.log("dataCalledDriver",dataCalledDriver)
     }
     renderListCalledDriver(){
         const {dataCalledDriver} = this.state
@@ -91,26 +92,6 @@ export default class CallHistory extends Component{
                         <Text style={styles.Date}>{element.dateTime && moment(element.dateTime).format("DD-MMMM-YYYY")}</Text>
                     </View>
                 </TouchableOpacity>
-                // <View style={styles.branch}>
-                //     <TouchableOpacity 
-                //         style={{flex:.8,flexDirection:'row'}}
-                //         onPress={()=>{NavigationService.navigate(NAV_TYPES.DETAIL_CALLED_DRIVER, {data:element})}}>  
-                //         {/* RESULTPACKAGE */}
-                //         <View style={styles.ListTitleBox}>
-                //             <Text style={styles.ListTitle}>{element.driverName}</Text>
-                //         </View>
-                //         <View style={styles.dateBox}>
-                //             <Text style={styles.Date}>{element.dateTime && moment(element.dateTime).format("DD-MMMM-YYYY")}</Text>
-                //         </View>
-                //     </TouchableOpacity>
-                //     <TouchableOpacity 
-                //         style={{flex:.2}}
-                //     >
-                //         <View style={styles.dateBox}>
-                //             <Text style={styles.Date}>cancel</Text>
-                //         </View>
-                //     </TouchableOpacity>
-                // </View>                      
             )
         }
         console.log("results",results);
@@ -129,12 +110,12 @@ export default class CallHistory extends Component{
                         <View style={styles.btnBack}>
                             <TouchableOpacity onPress={()=>{NavigationService.goBack()}}>
                                 <MaterialIcons
-                                    style={{color:'#02475e',marginRight:'20%',fontSize:33}} name="keyboard-arrow-left"> 
+                                    style={{color:colors.gray_dark,marginRight:'20%',fontSize:33}} name="keyboard-arrow-left"> 
                                 </MaterialIcons>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.benner}>
-                            <Text style={{fontSize:22, color:'#02475e',fontFamily:'Battambang-Bold'}}>
+                            <Text style={{fontSize:22, color:colors.gray_dark,fontFamily:'Battambang-Bold'}}>
                                 {I18n.t('callHistory')}
                             </Text>
                         </View>   
@@ -145,7 +126,7 @@ export default class CallHistory extends Component{
                     
                     <View flex={0.01}
                         style={{
-                            borderBottomColor: '#02475e',
+                            borderBottomColor: colors.gray_dark,
                             borderBottomWidth: 1, Top:50,
                         }}
                     />

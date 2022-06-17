@@ -15,7 +15,7 @@ import {
     Modal,
     Alert,
     Platform,
-} from 'react-native'›
+} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import I18n from "../Service/Translate";
 import { colors, images } from '../Assets'
@@ -146,12 +146,12 @@ export default class Login extends Component{
                                 onChangeText={(value) => this.handleChangeInput('phone', value)}
                                 maxLength={10}
                             />
-                            <TextInput style={styles.inputBox}
+                            <TextInput 
+                                style={styles.inputBox}
                                 placeholder={I18n.t('enterPassword')}
                                 placeholderTextColor="grey"
                                 secureTextEntry={true}
                                 color='black'
-                                marginBottom={'3%'}
                                 value={dataInput.password}
                                 onChangeText={(value) => this.handleChangeInput('password', value)}
                             />
@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
     },
-
     language:{
         flex:0.1,
         flexDirection:'row',
@@ -209,7 +208,6 @@ const styles = StyleSheet.create({
         textAlign:'center',
         borderBottomColor:'white',
         borderBottomWidth:1,
-        
     },
     listBox:{
         backgroundColor:'white',
@@ -242,34 +240,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     HeaderTitle:{
+        fontWeight:'bold',
         fontSize: 20,
         color: colors.gray_dark,
         textAlign: 'center',
         fontFamily:'Battambang',
         margin:'10%',
         marginBottom:'5%',
-        marginTop:'0%'
+        marginTop:'5%',
     },
     inputBox:{
-        flex:1,
         borderWidth:1,
-        flexDirection:"row",
-        fontFamily:'Battambang', 
         marginLeft:"10%",
         marginRight:"10%",
         marginBottom:10,
         borderColor:colors.gray_ligth,
         paddingLeft:10,
         borderRadius:5,
-        fontSize:16
-    },
-    SignInHeader:{
-        flex: 0.1,
-        fontSize: 16,
-        height: 40,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        fontSize:16,
+        height:48,
+        lineHeight:16
     },
     signIn:{
         fontSize: 18,

@@ -85,8 +85,6 @@ export default class Register extends Component{
                 })
             }
         }
-        
-       
     }
     renderRadioButton(){
         const radios=[
@@ -179,7 +177,7 @@ export default class Register extends Component{
                         />
                         <View style={styles.tick}>
                             {this.renderRadioButton()}
-                            <Text style={{color:colors.gray_dark, fontSize:14,fontFamily:'Battambang', }}>{I18n.t('registerRadioButton')}</Text>
+                            <Text style={{color:colors.gray_dark, fontSize:14,fontFamily:'Battambang',flex: 0.8, }}>{I18n.t('registerRadioButton')}</Text>
                         </View>
 
                         <TouchableOpacity style={styles.btnSignIn}
@@ -217,12 +215,13 @@ const styles = StyleSheet.create({
         marginTop:50
     },
     HeaderTitle:{
-        fontSize: 16,
+        fontSize: 20,
         color: colors.gray_dark,
         textAlign: 'center',
         fontFamily:'Battambang',
-        marginTop:10,
-        marginBottom:20
+        marginTop:20,
+        marginBottom:20,
+        fontWeight:'bold'
     },
     inputBox:{
         flex:1,
@@ -235,6 +234,7 @@ const styles = StyleSheet.create({
         borderColor:colors.gray_ligth,
         borderWidth:1,
         borderRadius:5,
+        height:45
 
     },
     btnSignIn:{
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
         marginRight:'10%',
         fontSize: 20,
         padding: 7,
-        height: 50,
+        height: 42,
         backgroundColor:colors.gray_dark,
         alignItems: 'center',
         borderRadius:5
@@ -259,7 +259,6 @@ const styles = StyleSheet.create({
         flex: 0.1,
         flexDirection:'row',
         justifyContent:'flex-start',
-        alignItems:'center',
         paddingBottom:10,
         marginLeft:'10%'
     },

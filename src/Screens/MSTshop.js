@@ -20,15 +20,9 @@ import requestPermission from '../Utils/requestPermission'
 import {PERMISSIONS} from 'react-native-permissions';
 import AsyncStorage from "@react-native-community/async-storage";
 import { PROFILE_URL } from "../Modules/app/config";
-import { color } from 'react-native-reanimated'
+import { colors } from '../Assets';
 import I18n from "../Service/Translate";
 
-
-var hobbies = [
-    {label: "ភាសាខ្មែរ", value: "ភាសាខ្មែរ"},
-    {label: "English", value: "English"},
-    {label: "chinese", value:"chinese"},
-  ];
 export default class MSTshop extends Component{
    
     constructor(){
@@ -284,13 +278,6 @@ export default class MSTshop extends Component{
                                                     <FontAwesome name={lang == 'en' ? 'dot-circle-o':'circle-o'} size={25} color={'#005792'}> </FontAwesome>
                                                     <Text style={styles.radioTitle}>English</Text>
                                                 </TouchableOpacity>
-                                                {/* <TouchableOpacity 
-                                                    style={styles.listBox}
-                                                    onPress={() => this.handleChangeLanguage('cn')}
-                                                >
-                                                    <FontAwesome name={lang == 'cn' ? 'dot-circle-o':'circle-o'} size={25} color={'#005792'}> </FontAwesome>
-                                                    <Text style={styles.radioTitle}>Chinese</Text>
-                                                </TouchableOpacity> */}
                                                 <TouchableOpacity style={styles.footerBtn}
                                                     onPress={()=>{this.setState({show:false})}}>
                                                     <Text style={{fontSize:18,fontFamily:'Battambang-Bold',color:'white'}}>{I18n.t('buttonDone')}</Text>
@@ -322,7 +309,7 @@ export default class MSTshop extends Component{
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: '#02475e',
+        backgroundColor:colors.gray_dark,
         position:'relative'
     },
     headerTitle:{
@@ -339,18 +326,14 @@ const styles = StyleSheet.create({
         flex: 0.31,
         flexDirection:'column',
         justifyContent:'center',
-        // alignItems:'flex-end',
-        // left:"1%",
         maxWidth: "95%",
         maxHeight:"100%",
         paddingLeft:"2.5%",
-        // backgroundColor:"yellow"
     },
     BoxImage:{
         width:'100%',
         height:'85%',
         resizeMode:'contain',
-        //backgroundColor:'white',
         justifyContent:'center',
         alignItems:'center',
         borderRadius:15,
@@ -373,7 +356,6 @@ const styles = StyleSheet.create({
         flex:0.3,
         flexDirection:'row',
         alignItems:'center',
-        // backgroundColor:'red',
         textAlign:'center'
     },
     TitleRow1:{
@@ -385,7 +367,6 @@ const styles = StyleSheet.create({
         flex:0.3,
         flexDirection:'row',
         alignItems:'center',
-        // backgroundColor:'red',
     },
     branch:{
         flex: 0.08,
@@ -423,10 +404,9 @@ const styles = StyleSheet.create({
         borderBottomWidth:1,
     },
     popUpTitle:{
-        // flex:0.25,
         height:65,
         flexDirection:'row',
-        backgroundColor:'#005792',
+        backgroundColor:colors.gray_dark,
         justifyContent:'center',
         alignItems:'center',
         textAlign:'center',
@@ -441,26 +421,23 @@ const styles = StyleSheet.create({
         color:'white',
         paddingLeft:20,
         alignItems:'center',
-        borderBottomColor:'#005792',
+        borderBottomColor:colors.gray_dark,
         borderBottomWidth:1,
     },
     radioTitle:{
         fontSize:16,
         fontFamily:'Battambang-Bold',
         marginTop:2,
-        color:'#005792',
+        color:colors.gray_dark,
     },
     footerBtn:{
-        // flex:0.10,
         height:56,
         width:'100%',
         flexDirection:'row',
-        backgroundColor:'red',
         justifyContent:'center',
         alignItems:'center',
         textAlign:'center',
-        // top:'63%',
-
+        backgroundColor:colors.background_modal
     },
     HeaderImage:{
         flex: 0.3,
@@ -468,7 +445,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'center',
         alignItems: 'center',
-        // backgroundColor:'red'
     },
   });
   

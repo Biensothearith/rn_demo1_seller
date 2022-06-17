@@ -25,7 +25,7 @@ import requestPermission from './../Utils/requestPermission'
 import I18n from "../Service/Translate";
 import MapView, {PROVIDER_GOOGLE, Circle, Marker,Callout} from 'react-native-maps';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-
+import { colors,images } from '../Assets';
 
 const EdgePadding = {
     top: 50,
@@ -248,7 +248,7 @@ export default class MotoMap extends Component{
                         <View style={styles.btnBack}>
                             <TouchableOpacity onPress={() => NavigationService.goBack()}>
                                 <MaterialIcons
-                                    style={{color:'#005792',marginRight:'0%',fontSize:45}} name="keyboard-arrow-left"> 
+                                    style={{color:colors.main_color,marginRight:'0%',fontSize:45}} name="keyboard-arrow-left"> 
                                 </MaterialIcons>
                             </TouchableOpacity> 
                         </View> 

@@ -198,12 +198,13 @@ const styles = StyleSheet.create({
         marginTop:60
     },
     HeaderTitle:{
-        fontSize: 16,
+        fontSize: 20,
         color: colors.gray_dark,
         textAlign: 'center',
         fontFamily:'Battambang',
-        marginTop:10,
-        marginBottom:20
+        marginTop:20,
+        marginBottom:20,
+        fontWeight:'bold'
     },
     inputBox:{
         borderRadius:5,
@@ -215,7 +216,8 @@ const styles = StyleSheet.create({
         marginLeft:"10%",
         marginRight:"10%",
         marginBottom:10,
-        paddingLeft:10
+        paddingLeft:10,
+        height:45
     },
     btnSignIn:{
         flex: 0.8,
@@ -224,7 +226,7 @@ const styles = StyleSheet.create({
         marginLeft:'10%',
         marginRight:'10%',
         padding: 7,
-        height: 50,
+        height:45,
         marginTop:0,
         backgroundColor: colors.gray_dark,
         alignItems: 'center',

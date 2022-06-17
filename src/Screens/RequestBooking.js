@@ -19,6 +19,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Feather from 'react-native-vector-icons/Feather'
 import NavigationService from '../Service/navigationService'
 import { NAV_TYPES } from '../Navigation/navTypes'
+import { colors } from '../Assets';
 export default class RequestBooking extends Component{
    
     constructor(prop){
@@ -37,7 +38,6 @@ export default class RequestBooking extends Component{
     UNSAFE_componentWillReceiveProps(nextProps){
         const {user} = this.props
         const {dataRequestBooking, page} = this.state
-        // console.log('...nextProps.user.dataRequestBooking',nextProps.user.dataRequestBooking);
         if(nextProps.user.dataRequestBookingError && nextProps.user.dataRequestBookingError !== user.dataRequestBookingError){
             Alert.alert(I18n.t('alertWentWrong'))
         }
@@ -57,9 +57,6 @@ export default class RequestBooking extends Component{
                 })
             }
         }
-        // if(nextProps.user.dataCancelBooking && nextProps.user.dataCancelBooking !== user.dataCancelBooking){
-        //     alert('deleted')
-        // }
     }
     async handleRefresh(){
         const {page} = this.state
@@ -72,7 +69,8 @@ export default class RequestBooking extends Component{
         this.props.listRequestBooking(1)
     }
     componentDidMount(){
-        this.handleListRequestBooking()
+        Alert.alert("Only demo~")
+        // this.handleListRequestBooking()
     }
     handleListRequestBooking(){
         const {page} = this.state
@@ -83,13 +81,8 @@ export default class RequestBooking extends Component{
         this.props.cancelBooking(this.state.data)
         this.handleRefresh()
     }
-    // renderListRequestBooking(){
-    //     const {dataRequestBooking} = this.state
-    //     console.log("dataRequestBooking",dataRequestBooking)
-    // }
     renderListRequestBooking(){
         const {dataRequestBooking} = this.state
-        // console.log("dataCalled driver",dataRequestBooking)
         var results = []
         for(let index = 0; index < dataRequestBooking.length; index++){
             const element = dataRequestBooking[index];
@@ -97,9 +90,7 @@ export default class RequestBooking extends Component{
                 <View style={styles.branch}>
                     <TouchableOpacity 
                         style={{flex:.7,flexDirection:'row',justifyContent:'center'}}
-                        // onPress={()=>{NavigationService.navigate(NAV_TYPES.DETAIL_CALLED_DRIVER, {data:element})}}
                     >  
-                        {/* RESULTPACKAGE */}
                         <View style={styles.ListTitleBox}>
                             <Feather
                                 style={styles.icon}
@@ -115,14 +106,11 @@ export default class RequestBooking extends Component{
                         style={{flex:.3,backgroundColor:'#02475e',alignItems:'center',justifyContent:'center'}}
                         onPress={()=> this.handleCancelBooking(element.id)}
                     >
-                        {/* <View style={styles.dateBox}> */}
                             <Text style={styles.cancel}>{I18n.t('Cancel')}</Text>
-                        {/* </View> */}
                     </TouchableOpacity>
                 </View>                      
             )
         }
-        // console.log("results",results);
         return results
     }
     render(){
@@ -140,12 +128,12 @@ export default class RequestBooking extends Component{
                                 onPress={()=>{NavigationService.navigate(NAV_TYPES.MSTSHOP)}}
                             >
                                 <MaterialIcons
-                                    style={{color:'#02475e',marginRight:'20%',fontSize:33}} name="keyboard-arrow-left"> 
+                                    style={{color:colors.gray_dark,marginRight:'20%',fontSize:33}} name="keyboard-arrow-left"> 
                                 </MaterialIcons>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.benner}>
-                            <Text style={{fontSize:22, color:'#02475e',fontFamily:'Battambang-Bold'}}>
+                            <Text style={{fontSize:22, color:colors.gray_dark,fontFamily:'Battambang-Bold'}}>
                                 {I18n.t('waitingBooking')}
                             </Text>
                         </View>   
@@ -156,7 +144,7 @@ export default class RequestBooking extends Component{
                     
                     <View flex={0.01}
                         style={{
-                            borderBottomColor: '#02475e',
+                            borderBottomColor: colors.gray_dark,
                             borderBottomWidth: 1, Top:50,
                         }}
                     />
@@ -265,7 +253,7 @@ const styles = StyleSheet.create({
     branch:{
         paddingVertical:15,
         flexDirection:'row',
-        borderBottomColor:'#02475e',
+        borderBottomColor:colors.gray_dark,
         borderBottomWidth:1,
     },
     ListTitleBox:{

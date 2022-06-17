@@ -20,7 +20,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import NavigationService from '../Service/navigationService'
 import { NAV_TYPES } from '../Navigation/navTypes'
-import { color } from 'react-native-reanimated'
+import { colors } from '../Assets'
 export default class Money extends Component{
    
     constructor(prop){
@@ -67,7 +67,7 @@ export default class Money extends Component{
         this.props.ListTotalSuccess(1)
     }
     componentDidMount(){
-        this.handleListTotalSuccess()
+        // this.handleListTotalSuccess()
     }
     handleListTotalSuccess(){
         const {page} = this.state
@@ -112,12 +112,12 @@ export default class Money extends Component{
                         <View style={styles.btnBack}>
                             <TouchableOpacity onPress={()=>{NavigationService.goBack()}}>
                                 <MaterialIcons
-                                    style={{color:'#02475e',marginRight:'20%',fontSize:33}} name="keyboard-arrow-left"> 
+                                    style={{color:colors.gray_dark,marginRight:'20%',fontSize:33}} name="keyboard-arrow-left"> 
                                 </MaterialIcons>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.benner}>
-                            <Text style={{fontSize:22, color:'#02475e',fontFamily:'Battambang-Bold'}}>{I18n.t('PaymentHistory')}</Text>
+                            <Text style={{fontSize:22, color:colors.gray_dark,fontFamily:'Battambang-Bold'}}>{I18n.t('PaymentHistory')}</Text>
                         </View>   
                         <View style={styles.btnBack}>
 
@@ -125,7 +125,7 @@ export default class Money extends Component{
                     </View>
                     <View flex={0.01}
                         style={{
-                            borderBottomColor: '#02475e',
+                            borderBottomColor: colors.gray_dark,
                             borderBottomWidth: 1, Top:50,
                         }}
                     />
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
         // flex: 0.08,
         paddingVertical:15,
         flexDirection:'row',
-        borderBottomColor:'#02475e',
+        borderBottomColor:colors.gray_dark,
         borderBottomWidth:1,
     },
     ListTitleBox:{
@@ -267,12 +267,12 @@ const styles = StyleSheet.create({
     },
     Title:{
         fontSize: 18,
-        color:  '#02475e',
+        color:  colors.gray_dark,
         fontFamily:'Battambang-Bold',
     },
     Date:{
         fontSize:12,
-        color:'#02475e',
+        color:colors.gray_dark,
     },
     endMore:{
         flex:1,

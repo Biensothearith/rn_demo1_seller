@@ -117,8 +117,6 @@ const ContactNavigation = createStackNavigator(
                 tabBarVisible: false,
             }
         },
-
-
     }
 )
 const Home01Navigation = createStackNavigator(
@@ -493,10 +491,6 @@ const AccountNavigator = createStackNavigator(
 )
 
 
-
-//
-
-
 //Tab Navigation
 const TabNavigation = createBottomTabNavigator(
     {
@@ -517,6 +511,15 @@ const TabNavigation = createBottomTabNavigator(
                 ),
             }
         },
+        [NAV_TYPES.NOTIFICATION]:{
+            screen:NotificationContainer,
+            navigationOptions:{
+                tabBarLabel:({focused})=>(
+                    <Ionicons style={{textAlign:'center'}}  name="notifications" size={25} color={'#fff'} > </Ionicons>  
+                ),
+            }
+        },
+        
         [NAV_TYPES.MSTSHOP]:{
             screen:MSTshopContainer,
             navigationOptions:{
@@ -525,6 +528,7 @@ const TabNavigation = createBottomTabNavigator(
                 ),
             }
         },
+        
     },
     {
         tabBarOptions: {

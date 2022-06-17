@@ -11,7 +11,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import NavigationService from '../Service/navigationService'
 import { NAV_TYPES } from '../Navigation/navTypes'
 import AsyncStorage from "@react-native-community/async-storage";
-import { color } from 'react-native-reanimated'
+import { colors,images } from '../Assets'
 import I18n from "../Service/Translate";
 export default class ManageCredit extends Component{
     constructor(prop){
@@ -34,7 +34,6 @@ export default class ManageCredit extends Component{
         try {
             const value = await AsyncStorage.getItem('@DataLogin');
             if (value !== null) {
-                // We have data!!
                 console.log('value', JSON.parse(value));
                 if(value){
                     this.setState({
@@ -46,7 +45,6 @@ export default class ManageCredit extends Component{
                 return
             }
         } catch (error) {
-            // Error retrieving data
             console.log('error', error);
         }
     };
@@ -54,7 +52,7 @@ export default class ManageCredit extends Component{
         this.getUserStorage()
     }
     render(){
-        const {dataInput, lang,profilePhoto,userStorage, profileUpdating} = this.state
+        const {userStorage} = this.state
         const {user} = this.props
         return(
             <>
@@ -63,13 +61,12 @@ export default class ManageCredit extends Component{
                         <View style={styles.btnBack}>
                             <TouchableOpacity onPress={()=>{NavigationService.navigate(NAV_TYPES.MSTSHOP)}}>
                                 <MaterialIcons
-                                    style={{color:'#02475e',marginRight:'20%',fontSize:33}} name="keyboard-arrow-left"> 
+                                    style={{color:colors.gray_dark,marginRight:'20%',fontSize:33}} name="keyboard-arrow-left"> 
                                 </MaterialIcons>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.benner}>
-                            <Text style={{fontSize:22, color:'#02475e',fontFamily:'Battambang-Bold'}}>
-                                {/* គ្រប់គ្រងគណនី */}
+                            <Text style={{fontSize:22, color:colors.gray_dark,fontFamily:'Battambang-Bold'}}>
                                 {I18n.t('ManageAccounts')}
                             </Text>
                         </View>   
@@ -79,7 +76,7 @@ export default class ManageCredit extends Component{
                     </View>
                     <View flex={0.01}
                         style={{
-                            borderBottomColor: '#02475e',
+                            borderBottomColor: colors.gray_dark,
                             borderBottomWidth: 1, Top:50,
                         }}
                     />
@@ -87,7 +84,6 @@ export default class ManageCredit extends Component{
                         onPress={()=>{NavigationService.navigate(NAV_TYPES.CREDITDETAIL)}}>
                        <View style={styles.ListTitleBox}>
                             <Text style={styles.ListTitle}>
-                                {/* ឈ្មោះគណនី */}
                                 {I18n.t('AccountName')}
                             </Text>
                         </View>
@@ -104,14 +100,12 @@ export default class ManageCredit extends Component{
                         onPress={()=>{NavigationService.navigate(NAV_TYPES.CREDITDETAIL)}}>
                         <View style={styles.ListTitleBox}>
                             <Text style={styles.ListTitle}>
-                                {/* លេខទូរសព្ទ័ */}
                                 {I18n.t('PhoneNumber')}
                             </Text>
                         </View>
                         <View style={styles.iconBox}>
                             {userStorage && userStorage.phone &&
                                 <Text style={styles.RightTitle}>
-                                    {/* 0965054500 */}
                                     {userStorage.phone}
                                 </Text>
                             }    
@@ -121,15 +115,12 @@ export default class ManageCredit extends Component{
                         onPress={()=>{NavigationService.navigate(NAV_TYPES.CREDITDETAIL)}}>
                         <View style={styles.ListTitleBox}>
                             <Text style={styles.ListTitle}>
-                                {/* ឈ្មោះស្ថាប័ន​​ធនាគា */}
                                 {I18n.t('bank')}
                             </Text>
                         </View>
                         <View style={styles.iconBox}>
-                            {/* <Text style={styles.RightTitle}>ABA</Text> */}
                             {userStorage && userStorage.bankName &&
                                 <Text style={styles.RightTitle}>
-                                    {/* 0965054500 */}
                                     {userStorage.bankName}
                                 </Text>
                             }
@@ -144,10 +135,8 @@ export default class ManageCredit extends Component{
                             </Text>
                         </View>
                         <View style={styles.iconBox}>
-                            {/* <Text style={styles.RightTitle}>MEASSOTHEA</Text> */}
                             {userStorage && userStorage.bankAccountName &&
                                 <Text style={styles.RightTitle}>
-                                    {/* 0965054500 */}
                                     {userStorage.bankAccountName}
                                 </Text>
                             }
@@ -157,29 +146,17 @@ export default class ManageCredit extends Component{
                         onPress={()=>{NavigationService.navigate(NAV_TYPES.CREDITDETAIL)}}>
                         <View style={styles.ListTitleBox}>
                             <Text style={styles.ListTitle}>
-                                {/* លេខគណនី​​ធនាគា */}
                                 {I18n.t('BankNumber')}
                             </Text>
                         </View>
                         <View style={styles.iconBox}>
-                            {/* <Text style={styles.RightTitle}>049999499</Text> */}
                             {userStorage && userStorage.bankAccountNumber &&
                                 <Text style={styles.RightTitle}>
-                                    {/* 0965054500 */}
                                     {userStorage.bankAccountNumber}
                                 </Text>
                             }
                         </View>
                     </TouchableOpacity>
-                    {/* <TouchableOpacity style={styles.branch}
-                        onPress={()=>{NavigationService.navigate(NAV_TYPES.BRANCH)}}>
-                        <View style={styles.ListTitleBox}>
-                            <Text style={styles.ListTitle}>លុបគណនី</Text>
-                        </View>
-                        <View style={styles.iconBox}>
-                            <Text style={styles.ListTitle}>១១ , ឧសភា , ២០២១</Text>
-                        </View>
-                    </TouchableOpacity> */}
                 </View>
             </>
         )
@@ -192,48 +169,32 @@ const styles = StyleSheet.create({
         position:'relative'
     },
     branch:{
-        // flex: 0.08,
-        // flexDirection:'row',
-        // borderBottomColor:'#02475e',
-        // borderBottomWidth:1,
         padding:13,
-        // height:50,
         flexDirection:'row',
-        borderBottomColor:'#02475e',
+        borderBottomColor:colors.gray_ligth,
         borderBottomWidth:1,
     },
     inner:{
         flex: 0.15,
         flexDirection: 'row',
         justifyContent: 'center',
-        //backgroundColor: 'yellow',
         marginTop:Platform.OS == 'ios' ? '10%':'5%'
     },
     benner: {
         flex: 0.8,
         justifyContent: 'center',
         alignItems: 'center',
-        // margin: 10,
-        // backgroundColor:'red',
     },
     btnBack:{
         flex: 0.2,
         flexDirection: 'row',
         justifyContent:'center',
         alignItems:'center',
-        // backgroundColor: 'red',
     },
-    // headerTitle:{
-    //     flex: 0.1,
-    //     justifyContent:'center',
-    //     alignItems:'center',
-    // },
     ListTitleBox:{
         flex:0.5,
-        // height:50,
         flexDirection:'row',
         alignItems:'center',
-        // backgroundColor:'red'
     },
     iconBox:{
         flex:0.45,
@@ -241,19 +202,16 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent: 'flex-end',
         marginEnd:-15,
-        // backgroundColor:'yellow'
     },
     ListTitle:{
-       color:"#02475e",
+       color:colors.gray_dark,
        fontSize:14,
        marginLeft:5,
-       fontFamily:'Battambang-Bold',
     },
     RightTitle:{
         color:"grey",
         fontSize:12,
         marginLeft:30,
-        fontFamily:'Battambang-Bold',
      },
   });
   

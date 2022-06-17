@@ -35,11 +35,8 @@ axios.interceptors.response.use(
 
 function* startupWorker() {
   var authDataString = yield AsyncStorage.getItem("@DataLogin");
-  console.log('authData',authDataString)
   const authData = yield JSON.parse(authDataString);
   if (authDataString && authData.token) {
-    console.log('authData.token', authData.token);
-    
     yield (axios.defaults.headers.common = {
       Authorization: `Bearer ${authData.token}`
     });
@@ -47,7 +44,6 @@ function* startupWorker() {
   } else {
     yield NavigationService.reset(NAV_TYPES.INTRO);
     yield NavigationService.navigate(NAV_TYPES.INTRO);
-    console.log('startupWorker error')
   }
 }
 

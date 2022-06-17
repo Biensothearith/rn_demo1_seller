@@ -1,12 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Text,
   StyleSheet,
   Image,
   View,
   TouchableOpacity,
+  ScrollView,
   SafeAreaView,
 } from "react-native";
+import Oneoption from "../Components/Oneoption";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Slideshow from "react-native-slideshow";
@@ -15,7 +17,33 @@ import NavigationService from "../Service/navigationService";
 import { NAV_TYPES } from "../Navigation/navTypes";
 import { SLIDE_URL } from "../Modules/app/config";
 import I18n from "../Service/Translate";
+import AsyncStorage from "@react-native-community/async-storage";
 import { colors, images } from "../Assets";
+
+export var OPTION = [
+  {
+    id: 1,
+    title: "moto",
+    image: images.moto,
+    detail: "forSmallShipments",
+    onpress: "MOTOMAP",
+  },
+  {
+    id: 2,
+    title: "romork",
+    image: images.tuktuk,
+    detail: "forMediumFreight",
+    onpress: "MAP01",
+  },
+  {
+    id: 3,
+    title: "truck",
+    image: images.van,
+    detail: "forBulkCargo",
+    onpress: "CARMAP",
+  },
+];
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -25,407 +53,138 @@ export default class Home extends Component {
       dataSource: [],
       lang: "en",
       countNotitification: 0,
+      userStorage: null,
     };
   }
-  componentDidMount() {
-    const { navigation } = this.props;
-    this.focusListener = navigation.addListener("didFocus", async () => {
-      this.props.getCountNotSeenNotification();
-    });
-    this.props.getSlide();
-    this.props.siteInformation();
+  renderOption(data) {
+    var rs = [];
+    if (data && data.length > 0) {
+      console.log(data);
+      data.map((one, i) => {
+        rs.push(<Oneoption data={one} index={i} />);
+      });
+    }
+    return rs;
   }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { user } = this.props;
-    if (
-      nextProps.user.dataSlide &&
-      nextProps.user.dataSlide !== user.dataSlide
-    ) {
-      if (nextProps.user.dataSlide.length > 0) {
-        var imageUrls = [];
-        for (let index = 0; index < nextProps.user.dataSlide.length; index++) {
-          const element = nextProps.user.dataSlide[index];
-          imageUrls.push({
-            url: SLIDE_URL + element.url,
+  getUserStorage = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@DataLogin");
+      if (value !== null) {
+        if (value) {
+          this.setState({
+            userStorage: JSON.parse(value).data,
           });
         }
-        console.log("imageUrls", imageUrls);
-        this.setState({
-          dataSource: imageUrls,
-        });
+      } else {
+        return;
       }
-    }
-
-    if (
-      nextProps.user.getCountNotSeenNotification &&
-      nextProps.user.getCountNotSeenNotification !==
-        user.getCountNotSeenNotification
-    ) {
-      if (nextProps.user.getCountNotSeenNotification.length > 0) {
-        console.log(
-          "nextProps.user.getCountNotSeenNotification",
-          nextProps.user.getCountNotSeenNotification
-        );
-        this.setState({
-          countNotitification:
-            nextProps.user.getCountNotSeenNotification[0].notSeenCount,
-        });
-      }
-    }
-  }
-  componentWillMount() {
-    this.setState({
-      interval: setInterval(() => {
-        this.setState({
-          position:
-            this.state.position === this.state.dataSource.length
-              ? 0
-              : this.state.position + 1,
-        });
-      }, 2000),
-    });
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.interval);
-    console.log("this.props", this.props);
-    this.setState({
-      lang: I18n.locale,
-    });
-    console.log("I18n.locale", I18n.locale);
-  }
-
-  handleChangeLanguage(lang) {
-    this.props.setLocale({
-      lang: lang,
-      nav: NAV_TYPES.LOADING,
-    });
+    } catch (error) {}
+  };
+  componentDidMount() {
+    this.getUserStorage();
   }
   render() {
-    const { countNotitification } = this.state;
+    const { countNotitification, userStorage } = this.state;
     const { user } = this.props;
-    return (
-      <>
-        {user.pending && <Loading />}
-        <SafeAreaView style={{ flex: Platform.OS == "ios" ? 1 : 1 }}>
-          <View style={styles.container}>
-            <View style={styles.inner}>
-              <View style={styles.benner}>
-              <TouchableOpacity
-                  onPress={() => {
-                    NavigationService.navigate(NAV_TYPES.HISTORY);
-                  }}
-                >
-                  <FontAwesome
-                    style={styles.rightLogo}
-                    name="navicon"
-                    size={25}
-                    color={colors.main_color}
-                  >
-                    {" "}
-                  </FontAwesome>
-                </TouchableOpacity>
-                
-              </View>
-              <View style={styles.bennerLogo}>
-                <Image style={styles.centerLogo} source={images.logo} />
-              </View>
-              <View style={styles.benner}>
-               <TouchableOpacity
-                  onPress={() => {
-                    NavigationService.navigate(NAV_TYPES.NOTIFICATION);
-                  }}
-                >
-                  <FontAwesome
-                    style={styles.tinyLogo}
-                    name="bell"
-                    size={25}
-                    color={colors.main_color}
-                  >
-                    {" "}
-                  </FontAwesome>
-                  {countNotitification && countNotitification > 0 ? (
-                    <View style={styles.circle}>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          fontSize: 10,
-                          fontWeight: "bold",
-                          color: "white",
-                        }}
-                      >
-                        {countNotitification}
-                      </Text>
-                    </View>
-                  ) : null}
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.orderBox}>
-              <View style={styles.order}>
-                <TouchableOpacity
-                  style={styles.deliverBox}
-                  onPress={() => {
-                    NavigationService.navigate(NAV_TYPES.MOTOMAP);
-                  }}
-                >
-                  <View style={styles.deliverImage}>
-                    <Image
-                      style={styles.deliver}
-                      source={images.moto}
-                    />
-                  </View>
-                  <View style={styles.deliverTitle}>
-                    <Text style={styles.Title}>{I18n.t("moto")}</Text>
-                  </View>
-                  <View style={styles.deliverTitle1}>
-                    <Text
-                      style={{
-                        color: colors.white,
-                        fontSize: 12,
-                        fontFamily: "Battambang",
-                      }}
-                    >
-                      {I18n.t("forSmallShipments")}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.deliverBox}
-                  onPress={() => {
-                    NavigationService.navigate(NAV_TYPES.MAP01);
-                  }}
-                >
-                  <View style={styles.deliverImage}>
-                    <Image
-                      style={styles.deliver_tuktuk}
-                      source={images.tuktuk}
-                    />
-                  </View>
-                  <View style={styles.deliverTitle}>
-                    <Text style={styles.Title}>{I18n.t("romork")}</Text>
-                  </View>
-                  <View style={styles.deliverTitle1}>
-                    <Text
-                      style={{
-                        color: colors.white,
-                        fontSize: 12,
-                        fontFamily: "Battambang",
-                      }}
-                    >
-                      {I18n.t("forMediumFreight")}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
 
-              <View style={styles.check}>
-                <TouchableOpacity
-                  style={styles.deliverBox}
-                  onPress={() => {
-                    NavigationService.navigate(NAV_TYPES.CARMAP);
-                  }}
-                >
-                  <View style={styles.deliverImage}>
-                    <Image
-                      style={styles.deliver_van}
-                      source={images.van}
-                    />
-                  </View>
-                  <View style={styles.deliverTitle}>
-                    <Text style={styles.Title}>{I18n.t("truck")}</Text>
-                  </View>
-                  <View style={styles.deliverTitle1}>
-                    <Text
-                      style={{
-                        color: colors.white,
-                        fontSize: 12,
-                        fontFamily: "Battambang",
-                      }}
-                    >
-                      {I18n.t("forBulkCargo")}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.deliverBox}
-                  onPress={() => {
-                    NavigationService.navigate(NAV_TYPES.FLOW);
-                  }}
-                >
-                  <View style={styles.deliverImage}>
-                    <Image
-                      style={styles.deliver_search}
-                      source={images.search}
-                    />
-                  </View>
-                  <View style={styles.deliverTitle}>
-                    <Text style={styles.Title}>{I18n.t("checkLuggage")}</Text>
-                  </View>
-                  <View style={styles.deliverTitle1}>
-                    <Text
-                      style={{
-                        color: colors.white,
-                        fontSize: 12,
-                        fontFamily: "Battambang",
-                      }}
-                    >
-                      {I18n.t("checkTheDeliveryProcess")}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
+    return (
+      <Fragment>
+        <SafeAreaView style={styles.main_safeAreaview}>
+          <View style={styles.handerRow}>
+            <View style={styles.handerRow_left}>
+              <Text style={styles.text_hello}>
+                {I18n.t("word_hi")} {userStorage && userStorage.name}
+              </Text>
             </View>
-            <View style={styles.ads}>
-              <View style={styles.bennerAds} marginTop={3}>
-                <View
-                  style={{ color: "white", marginTop: 5, fontSize: 15 }}
-                ></View>
-                <Slideshow
-                  style={styles.slide}
-                  dataSource={this.state.dataSource}
-                  position={this.state.position}
-                  height={220}
-                  onPositionChanged={position => this.setState({ position })}
-                />
-              </View>
+            <View style={styles.handerRow_right}>
+              <Image style={styles.centerLogo} source={images.logo} />
             </View>
           </View>
+          <View style={styles.view_search}>
+            <TouchableOpacity
+              style={styles.touchsearch}
+              onPress={() => NavigationService.navigate(NAV_TYPES.FLOW)}
+            >
+              <View style={styles.view_search_right}>
+                <Image
+                  source={images.search}
+                  style={{ width: 20, height: 20 }}
+                />
+              </View>
+              <View style={styles.view_search_text}>
+                <Text style={styles.text_search}>{I18n.t("checkLuggage")}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <ScrollView style={{ flex: 1, flexDirection: "column" }}>
+            {this.renderOption(OPTION)}
+          </ScrollView>
         </SafeAreaView>
-      </>
+      </Fragment>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {
+  //main
+  main_safeAreaview: {
     flex: 1,
-    backgroundColor: colors.white,
+    flexDirection: "column",
   },
-  btn: {
-    flex: 1,
-  },
-  inner: {
+  //top
+  handerRow: {
     flex: 0.1,
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingHorizontal: 20,
   },
-  benner: {
+  handerRow_left: {
+    flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
   },
-  circle: {
-    height: 15,
-    width: 15,
-    borderRadius: 15,
-    backgroundColor: "red",
-    borderWidth: 1,
-    borderColor: "#364547",
-    right: 5,
-    position: "absolute",
-  },
-  bennerLogo: {
-    flex: 1,
+  handerRow_right: {
+    flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
-  },
-  tinyLogo: {
-    marginRight: 12,
   },
   centerLogo: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
   },
-  rightLogo: {
-    marginLeft: 15,
-  },
-  ads: {
-    flex: 0.33,
-    flexDirection: "row",
-    paddingBottom: 20,
-    padding: 15,
-  },
-  bennerAds: {
-    flex: 1,
-    alignItems: "center",
-    margin: 0,
-    marginTop: -10,
-  },
-  adsImage: {
-    width: "100%",
-    height: "80%",
+  text_hello: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: colors.main_color,
   },
 
-  orderBox: {
-    flex: 0.52,
-    margin: 15,
-    marginBottom: 0,
-    marginTop: 0,
+  //search
+  view_search: {
+    height: 52,
+    paddingHorizontal: 20,
+    marginVertical: 20,
   },
-  Title: {
-    fontSize: 16,
-    color: "white",
-    fontFamily: "Battambang",
-  },
-  TitleBox: {
-    flex: 0.5,
+  touchsearch: {
+    height: 52,
+    borderRadius: 10,
+    borderWidth: 1,
     flexDirection: "row",
     justifyContent: "center",
+    borderColor: colors.main_color,
+    backgroundColor: colors.white,
+  },
+  view_search_right: {
+    justifyContent: "center",
+    backgroundColor: colors.main_color,
+    borderRadius: 9,
+    width: 51,
+    height: 51,
     alignItems: "center",
   },
-  order: {
-    flex: 0.5,
-    flexDirection: "row",
-  },
-  deliver: {
-    width: 60,
-    height:60,
-  },
-  deliver_tuktuk:{
-    width:80,
-    height:80
-  },
-  deliver_van:{
-    width:70,
-    height:70
-  },
-  deliver_search:{
-    width:50,
-    height:50
-  },
-  check: {
-    flex: 0.5,
-    flexDirection: "row",
-  },
-  deliverBox: {
-    flex: 0.6,
-    flexDirection: "column",
-    backgroundColor: colors.gray_dark,
-    margin: 2,
-    borderRadius: 15,
-  },
-  deliverImage: {
-    flex: 0.65,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  deliverTitle: {
-    flex: 0.18,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  deliverTitle1: {
-    flex: 0.17,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  checkBox: {
+  view_search_text: {
     flex: 1,
-    margin: 10,
-    marginBottom: 0,
-    borderColor: "skyblue",
     justifyContent: "center",
-    alignItems: "center",
+  },
+  text_search: {
+    paddingLeft: 10,
+    fontSize: 16,
+    color: colors.main_color,
   },
 });
