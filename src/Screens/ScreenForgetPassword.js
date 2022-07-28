@@ -75,20 +75,21 @@ export default class Register extends Component{
             Alert.alert(I18n.t('alertInvalidConfirmPassword'))
         }
         else if (phone[0] == '0') {
-            phone = phone.substr(1, phone.length - 1)
-            if (newPassword != confirmNewPassword) {
-                Alert.alert(I18n.t('alertPassNotMatch'))
-            }
-            else{
-                phone = "855" + phone
-                this.props.userGetSMS({
-                    phone:phone,
-                    setToken:true
-                })
-            }
+            Alert.alert("Version Demo!")
+            // phone = phone.substr(1, phone.length - 1)
+            // if (newPassword != confirmNewPassword) {
+            //     Alert.alert(I18n.t('alertPassNotMatch'))
+            // }
+            // else{
+            //     phone = "855" + phone
+            //     this.props.userGetSMS({
+            //         phone:phone,
+            //         setToken:true
+            //     })
+            // }
+        }else{
+            Alert.alert("Version Demo!")
         }
-        
-       
     }
     componentDidMount(){
         console.log('ddd',this.props);

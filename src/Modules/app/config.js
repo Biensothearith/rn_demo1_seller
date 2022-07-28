@@ -1,7 +1,7 @@
 // export const API_URL = 'https://mstapi.amatak.net/'
 // export const API_URL = 'http://127.0.0.1:30112/'
 
-export const API_URL = 'http://192.168.0.102:30112/'
+export const API_URL = 'https://demo1api.biensothearith1702.store/'
 export const SLIDE_URL = API_URL+"app/slide/"
 export const PROFILE_URL = API_URL+"app/images/seller/"
 export const IOS_APP_ID = '1575199676'

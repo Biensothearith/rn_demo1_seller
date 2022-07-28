@@ -64,11 +64,12 @@ export default class VerifyCode extends Component{
             phone = phone.substr(1, phone.length - 1)
         }
         phone = "855" + phone
-        this.props.userRegister({
-            ...dataInput,
-            phone:phone,
-            smsCode:code 
-        })
+        Alert.alert('Version Demo!')
+        // this.props.userRegister({
+        //     ...dataInput,
+        //     phone:phone,
+        //     smsCode:code 
+        // })
     }
 
     handleCodeChange(value){
